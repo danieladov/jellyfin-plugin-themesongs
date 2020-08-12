@@ -2,28 +2,9 @@
 <h3 align="center">Part of the <a href="https://jellyfin.media">Jellyfin Project</a></h3>
 
 <p align="center">
-Jellyfin Merge Versions plugin is a plugin that automatically groups every repeated movie;
+Jellyfin Theme Songs plugin is a plugin that automatically downloads every theme song of your tv show library;
 
 </p>
-
-## Install Process
-
-
-## From Repository
-1. In jellyfin, go to dashboard -> plugins -> Repositories -> add and paste this link https://raw.githubusercontent.com/danieladov/JellyfinPluginManifest/master/manifest.json
-2. Go to Catalog and search for the plugin you want to install
-3. Click on it and install
-4. Restart Jellyfin
-
-
-## From .zip file
-1. Download the .zip file from release page
-2. Extract it and place the .dll file in a folder called ```plugins/Merge Versions``` under  the program data directory or inside the portable install directory
-3. Restart Jellyfin
-
-## User Guide
-1. To merge your movies or episodes you can do it from Schedule task or directly from the configuration of the plugin.
-2. Spliting is only avaible through the configuration
 
 
 
