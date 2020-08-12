@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Jellyfin.Plugin.ThemeSongs.Api;
-using MediaBrowser.Api;
-using MediaBrowser.Controller.Collections;
-using MediaBrowser.Controller.Configuration;
-using MediaBrowser.Controller.Dto;
 using MediaBrowser.Controller.Library;
-using MediaBrowser.Controller.Net;
 using MediaBrowser.Model.Tasks;
 using Microsoft.Extensions.Logging;
 
@@ -16,26 +10,18 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
 {
     public class DownloadThemeSongsTask : IScheduledTask
     {
-        private readonly ILogger _logger;
-        private readonly ThemeSongsManager _mergeVersionsManager;
+        private readonly ILogger<DownloadThemeSongsTask> _logger;
+        private readonly ThemeSongsManager _themeSongsManager;
 
-        public DownloadThemeSongsTask(ILibraryManager libraryManager, ICollectionManager collectionManager, ILogger<VideosService> logger, IServerConfigurationManager serverConfigurationManager,
-            IHttpResultFactory httpResultFactory,
-            IUserManager userManager,
-            IDtoService dtoService,
-            IAuthorizationContext authContext)
+        public DownloadThemeSongsTask(ILibraryManager libraryManager, ILogger<DownloadThemeSongsTask> logger)
         {
             _logger = logger;
-            _mergeVersionsManager = new ThemeSongsManager(libraryManager, collectionManager, logger, serverConfigurationManager,
-             httpResultFactory,
-             userManager,
-             dtoService,
-             authContext, new GetId());
+            _themeSongsManager = new ThemeSongsManager(libraryManager,  logger);
         }
         public Task Execute(CancellationToken cancellationToken, IProgress<double> progress)
         {
             _logger.LogInformation("Starting plugin, Downloading Theme Songs...");
-            _mergeVersionsManager.DownloadAllThemeSongs();
+            _themeSongsManager.DownloadAllThemeSongs();
             _logger.LogInformation("All theme songs downloaded");
             return Task.CompletedTask;
         }
@@ -43,8 +29,10 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
         public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
         {
             // Run this task every 24 hours
-            return new[] {
-                new TaskTriggerInfo { Type = TaskTriggerInfo.TriggerInterval, IntervalTicks = TimeSpan.FromHours(24).Ticks}
+            yield return new TaskTriggerInfo
+            {
+                Type = TaskTriggerInfo.TriggerInterval, 
+                IntervalTicks = TimeSpan.FromHours(24).Ticks
             };
         }
 

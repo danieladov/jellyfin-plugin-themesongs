@@ -23,8 +23,6 @@ namespace Jellyfin.Plugin.ThemeSongs
         public override string Description
             => "Downloads Theme Songs";
 
-        public PluginConfiguration PluginConfiguration => Configuration;
-
         private readonly Guid _id = new Guid("afe1de9c-63e4-4692-8d8c-7c964df19eb2");
         public override Guid Id => _id;
 
