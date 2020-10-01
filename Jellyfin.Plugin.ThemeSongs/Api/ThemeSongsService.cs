@@ -34,7 +34,7 @@ namespace Jellyfin.Plugin.ThemeSongs.Api
         public void Post(DownloadRequest request)
         {
             _logger.LogInformation("Starting a manual refresh, looking up for repeated versions");
-            _themeSongsManager.DownloadAllThemeSongs();
+            _themeSongsManager.DownloadAllTVThemeSongs();
             _logger.LogInformation("Completed refresh");
         }
 

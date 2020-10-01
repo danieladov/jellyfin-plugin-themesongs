@@ -18,4 +18,17 @@
     <EmbeddedResource Include="Configuration\configurationpage.html" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="YoutubeExplode">
+      <HintPath>..\..\jellyfin-plugin-template\Jellyfin.Plugin.Template\YoutubeExplode.dll</HintPath>
+    </Reference>
+    <Reference Include="YouTubeSearch">
+      <HintPath>..\..\jellyfin-plugin-template\Jellyfin.Plugin.Template\YouTubeSearch.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
