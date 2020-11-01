@@ -57,29 +57,36 @@ namespace Jellyfin.Plugin.ThemeSongs
 			var series = GetSeriesFromLibrary();
 			foreach (var serie in series)
 			{
-				var tvdb = serie.GetProviderId(MetadataProvider.Tvdb);
-				var themeSongPath = Path.Join(serie.Path, "theme.mp3");
-				var link = $"http://tvthemes.plexapp.com/{tvdb}.mp3";
-				_logger.LogDebug("Trying to download {seriesName}, {link}", serie.Name, link);
+				if (!hasThemeSong(serie))
+				{
+					var tvdb = serie.GetProviderId(MetadataProvider.Tvdb);
+					var themeSongPath = Path.Join(serie.Path, "theme.mp3");
+					var link = $"http://tvthemes.plexapp.com/{tvdb}.mp3";
+					_logger.LogDebug("Trying to download {seriesName}, {link}", serie.Name, link);
 
-				try
-				{
-					using var client = new WebClient();
-					client.DownloadFile(link, themeSongPath);
-				}
-				catch (Exception e)
-				{
-					_logger.LogError(e, "{seriesName} not found, or no internet connection", serie.Name);
+					try
+					{
+						using var client = new WebClient();
+						client.DownloadFile(link, themeSongPath);
+						_logger.LogInformation("{serieName} theme song downloaded", serie.Name);
+					}
+					catch (Exception e)
+					{
+						_logger.LogError("{serieName} not found, or no internet connection", serie.Name);
+					}
 				}
 			}
 		}
 
+		public bool hasThemeSong(BaseItem item)
+		{
+			return item.ThemeSongIds.Length != 0;
+		}
+
 		public async Task DownloadAllMoviesThemeSongsAsync()
 		{
-			_logger.LogInformation("1");
 			VideoSearch videoSearch = new VideoSearch();
 			var movies = GetMoviesFromLibrary();
-			_logger.LogInformation(movies.Count().ToString());
 			foreach (var movie in movies)
 			{
 
@@ -93,12 +100,11 @@ namespace Jellyfin.Plugin.ThemeSongs
 				_logger.LogInformation(link);
 				try
 				{
-					//IEnumerable<YoutubeExtractor.VideoInfo> videoInfos = YoutubeExtractor.DownloadUrlResolver.GetDownloadUrls(link);
 					await downloadYoutubeAudioAsync(movie.ContainingFolderPath, link);
 				}
 				catch(Exception e)
 				{
-					_logger.LogInformation(e.Message);
+					_logger.LogDebug(e.Message,"Error trying to download " + title + "Theme Song" );
 					_logger.LogInformation("error");
 
 				}
@@ -124,57 +130,7 @@ namespace Jellyfin.Plugin.ThemeSongs
 				await youtube.Videos.Streams.DownloadAsync(streamInfo, Path.Join(path, "theme.mp3"));
 			}
 
-
-			//var source = path;
-			//var youtube = YouTube.Default;
-			//var vid = youtube.GetVideo(link);
-			//File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
-
-			//var inputFile = new MediaFile { Filename = source + vid.FullName };
-			//var outputFile = new MediaFile { Filename = "theme.mp3" };
-
-			//using (var engine = new Engine())
-			//{
-			//	engine.GetMetadata(inputFile);
-
-			//	engine.Convert(inputFile, outputFile);
-			//}
-
-
-			///*
-			//* We want the first extractable video with the highest audio quality.
-			//*/
-
-			//YoutubeExtractor.VideoInfo video = videoInfos
-			//	.Where(info => info.CanExtractAudio)
-			//	.OrderByDescending(info => info.AudioBitrate)
-			//	.First();
-
-			///*
-			//          * If the video has a decrypted signature, decipher it
-			//          */
-			//if (video.RequiresDecryption)
-			//{
-			//	YoutubeExtractor.DownloadUrlResolver.DecryptDownloadUrl(video);
-			//}
-
-			///*
-			//          * Create the audio downloader.
-			//          * The first argument is the video where the audio should be extracted from.
-			//          * The second argument is the path to save the audio file.
-			//          */
-			//var audioDownloader = new AudioDownloader(video, Path.Join(path, "theme.mp3"));
-
-			//// Register the progress events. We treat the download progress as 85% of the progress and the extraction progress only as 15% of the progress,
-			//// because the download will take much longer than the audio extraction.
-			//audioDownloader.DownloadProgressChanged += (sender, args) => Console.WriteLine(args.ProgressPercentage * 0.85);
-			//audioDownloader.AudioExtractionProgressChanged += (sender, args) => Console.WriteLine(85 + args.ProgressPercentage * 0.15);
-
-			///*
-			//          * Execute the audio downloader.
-			//          * For GUI applications note, that this method runs synchronously.
-			//          */
-			//audioDownloader.Execute();
+			
 
 		}
 

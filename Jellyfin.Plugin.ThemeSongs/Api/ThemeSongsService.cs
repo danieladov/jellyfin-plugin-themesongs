@@ -12,12 +12,6 @@ namespace Jellyfin.Plugin.ThemeSongs.Api
     {
     }
 
-    public class GetId 
-    {
-        [ApiMember(Name = "Id", Description = "Item Id", IsRequired = true, DataType = "string", ParameterType = "path", Verb = "GET")]
-        public Guid Id { get; set; }
-    }
-
     public class ThemeSongsService : IService
     {
         private readonly ThemeSongsManager _themeSongsManager;
