@@ -16,7 +16,9 @@ using YouTubeSearch;
 using YoutubeExplode;
 
 namespace Jellyfin.Plugin.ThemeSongs
+
 {
+
     public class ThemeSongsManager : IServerEntryPoint
     {
         private readonly ILibraryManager _libraryManager;
@@ -57,21 +59,27 @@ namespace Jellyfin.Plugin.ThemeSongs
             var series = GetSeriesFromLibrary();
             foreach (var serie in series)
             {
-                var tvdb = serie.GetProviderId(MetadataProvider.Tvdb);
-                var themeSongPath = Path.Join(serie.Path, "theme.mp3");
-                var link = $"http://tvthemes.plexapp.com/{tvdb}.mp3";
-                _logger.LogDebug("Trying to download {seriesName}, {link}", serie.Name, link);
+                if (serie.ThemeSongIds.Count() == 0)
+                {
+                    var tvdb = serie.GetProviderId(MetadataProvider.Tvdb);
+                    var themeSongPath = Path.Join(serie.Path, "theme.mp3");
+                    var link = $"http://tvthemes.plexapp.com/{tvdb}.mp3";
+                    _logger.LogDebug("Trying to download {seriesName}, {link}", serie.Name, link);
 
-                try
-                {
-                    using var client = new WebClient();
-                    client.DownloadFile(link, themeSongPath);
-                }
-                catch (Exception e)
-                {
-                    _logger.LogError(e, "{seriesName} not found, or no internet connection", serie.Name);
+                    try
+                    {
+                        using var client = new WebClient();
+                        client.DownloadFile(link, themeSongPath);
+                        _logger.LogInformation("{seriesName} theme song succesfully downloaded", serie.Name);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogInformation("{seriesName} theme song not in database, or no internet connection", serie.Name);
+                    }
                 }
             }
+                   
+                
         }
 
         public async Task DownloadAllMoviesThemeSongsAsync()

@@ -20,7 +20,7 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
         }
         public Task Execute(CancellationToken cancellationToken, IProgress<double> progress)
         {
-            _logger.LogInformation("Starting plugin, Downloading Theme Songs...");
+            _logger.LogInformation("Starting plugin, Downloading TV Theme Songs...");
             _themeSongsManager.DownloadAllThemeSongs();
             _logger.LogInformation("All theme songs downloaded");
             return Task.CompletedTask;
@@ -36,9 +36,9 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
             };
         }
 
-        public string Name => "Download Theme Songs";
-        public string Key => "DownloadThemeSongs";
-        public string Description => "Scans all libraries to download Theme Songs";
+        public string Name => "Download TV Theme Songs";
+        public string Key => "DownloadTV ThemeSongs";
+        public string Description => "Scans all libraries to download TV Theme Songs";
         public string Category => "Theme Songs";
     }
 
@@ -70,7 +70,7 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
             };
         }
 
-        public string Name => "Download Movies Theme Songs";
+        public string Name => "Download Movies Theme Songs (beta)";
         public string Key => "DownloadMoviesThemeSongs";
         public string Description => "Scans all libraries to download Movies Theme Songs";
         public string Category => "Theme Songs";
