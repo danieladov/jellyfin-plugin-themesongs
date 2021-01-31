@@ -10,10 +10,10 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
 {
     public class DownloadThemeSongsTask : IScheduledTask
     {
-        private readonly ILogger<DownloadThemeSongsTask> _logger;
+        private readonly ILogger<ThemeSongsManager> _logger;
         private readonly ThemeSongsManager _themeSongsManager;
 
-        public DownloadThemeSongsTask(ILibraryManager libraryManager, ILogger<DownloadThemeSongsTask> logger)
+        public DownloadThemeSongsTask(ILibraryManager libraryManager, ILogger<ThemeSongsManager> logger)
         {
             _logger = logger;
             _themeSongsManager = new ThemeSongsManager(libraryManager,  logger);
@@ -44,10 +44,10 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
 
     public class DownloadMoviesThemeSongsTask : IScheduledTask
     {
-        private readonly ILogger<DownloadThemeSongsTask> _logger;
+        private readonly ILogger<ThemeSongsManager> _logger;
         private readonly ThemeSongsManager _themeSongsManager;
 
-        public DownloadMoviesThemeSongsTask(ILibraryManager libraryManager, ILogger<DownloadThemeSongsTask> logger)
+        public DownloadMoviesThemeSongsTask(ILibraryManager libraryManager, ILogger<ThemeSongsManager> logger)
         {
             _logger = logger;
             _themeSongsManager = new ThemeSongsManager(libraryManager, logger);

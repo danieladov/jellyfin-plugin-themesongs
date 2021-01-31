@@ -19,14 +19,14 @@ namespace Jellyfin.Plugin.ThemeSongs.Api
     public class ThemeSongsController : ControllerBase
     {
         private readonly ThemeSongsManager _themeSongsManager;
-        private readonly ILogger<ThemeSongsController> _logger;
+        private readonly ILogger<ThemeSongsManager> _logger;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ThemeSongsController"/>.
 
         public ThemeSongsController(
             ILibraryManager libraryManager,
-            ILogger<ThemeSongsController> logger)
+            ILogger<ThemeSongsManager> logger)
         {
             _themeSongsManager = new ThemeSongsManager(libraryManager,  logger);
             _logger = logger;

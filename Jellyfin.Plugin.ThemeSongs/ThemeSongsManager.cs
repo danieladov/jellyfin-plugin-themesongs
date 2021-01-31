@@ -23,9 +23,9 @@ namespace Jellyfin.Plugin.ThemeSongs
     {
         private readonly ILibraryManager _libraryManager;
         private readonly Timer _timer;
-        private readonly ILogger _logger;
+        private readonly ILogger<ThemeSongsManager> _logger;
 
-        public ThemeSongsManager(ILibraryManager libraryManager, ILogger logger)
+        public ThemeSongsManager(ILibraryManager libraryManager, ILogger<ThemeSongsManager> logger)
         {
             _libraryManager = libraryManager;
             _logger = logger;
