@@ -41,38 +41,4 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
         public string Description => "Scans all libraries to download TV Theme Songs";
         public string Category => "Theme Songs";
     }
-
-    public class DownloadMoviesThemeSongsTask : IScheduledTask
-    {
-        private readonly ILogger<ThemeSongsManager> _logger;
-        private readonly ThemeSongsManager _themeSongsManager;
-
-        public DownloadMoviesThemeSongsTask(ILibraryManager libraryManager, ILogger<ThemeSongsManager> logger)
-        {
-            _logger = logger;
-            _themeSongsManager = new ThemeSongsManager(libraryManager, logger);
-        }
-        public Task Execute(CancellationToken cancellationToken, IProgress<double> progress)
-        {
-            _logger.LogInformation("Starting plugin, Downloading Theme Songs...");
-            _themeSongsManager.DownloadAllMoviesThemeSongsAsync();
-            _logger.LogInformation("All theme songs downloaded");
-            return Task.CompletedTask;
-        }
-
-        public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
-        {
-            // Run this task every 24 hours
-            yield return new TaskTriggerInfo
-            {
-                Type = TaskTriggerInfo.TriggerInterval,
-                IntervalTicks = TimeSpan.FromHours(24).Ticks
-            };
-        }
-
-        public string Name => "Download Movies Theme Songs (beta)";
-        public string Key => "DownloadMoviesThemeSongs";
-        public string Description => "Scans all libraries to download Movies Theme Songs";
-        public string Category => "Theme Songs";
-    }
 }
