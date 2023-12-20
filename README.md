@@ -23,6 +23,7 @@ Jellyfin Theme Songs plugin is a plugin that automatically downloads every theme
 
 ## User Guide
 1. To download the theme songs you can do it from Schedule task or directly from the configuration of the plugin.
+2. You need to have enabled the option "Theme Songs" under display
 
 
 
