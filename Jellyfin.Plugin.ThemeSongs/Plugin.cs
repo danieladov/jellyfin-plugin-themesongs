@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Jellyfin.Plugin.ThemeSongs.Configuration;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Common.Plugins;
+using MediaBrowser.Controller;
 using MediaBrowser.Model.Plugins;
 using MediaBrowser.Model.Serialization;
 
@@ -10,7 +11,7 @@ namespace Jellyfin.Plugin.ThemeSongs
 {
     public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages 
     {
-        public Plugin(IApplicationPaths appPaths, IXmlSerializer xmlSerializer)
+        public Plugin(IServerApplicationPaths appPaths, IXmlSerializer xmlSerializer)
             : base(appPaths, xmlSerializer)
         {
             Instance = this;

@@ -26,6 +26,11 @@ namespace Jellyfin.Plugin.ThemeSongs.ScheduledTasks
             return Task.CompletedTask;
         }
 
+        public Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
+        {
+            return Execute(cancellationToken, progress);
+        }
+
         public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
         {
             // Run this task every 24 hours

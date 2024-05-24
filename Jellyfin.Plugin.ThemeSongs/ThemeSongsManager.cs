@@ -19,7 +19,7 @@ namespace Jellyfin.Plugin.ThemeSongs
 {
 
 
-    public class ThemeSongsManager : IServerEntryPoint
+    public class ThemeSongsManager : IDisposable
     {
         private readonly ILibraryManager _libraryManager;
         private readonly Timer _timer;

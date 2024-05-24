@@ -11,7 +11,6 @@ namespace Jellyfin.Plugin.ThemeSongs.Api
     /// The Theme Songs api controller.
     /// </summary>
     [ApiController]
-    [Authorize(Policy = "DefaultAuthorization")]
     [Route("ThemeSongs")]
     [Produces(MediaTypeNames.Application.Json)]
     
