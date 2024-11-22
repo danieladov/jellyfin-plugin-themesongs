@@ -1,5 +1,5 @@
 <h1 align="center">Jellyfin Theme Songs Plugin</h1>
-<h3 align="center">Part of the <a href="https://jellyfin.media">Jellyfin Project</a></h3>
+<h3 align="center">Part of the <a href="https://jellyfin.org">Jellyfin Project</a></h3>
 
 <p align="center">
 Jellyfin Theme Songs plugin is a plugin that automatically downloads every theme song of your tv show library;
